@@ -1,0 +1,56 @@
+﻿@using System.Globalization
+@using Forward.Data.ViewModel
+@model OrderVM
+
+@{
+    ViewData["Title"] = "Замовлення";
+
+    var cultureInfo = Thread.CurrentThread.CurrentCulture;
+    var numberFormatInfo = (NumberFormatInfo)cultureInfo.NumberFormat.Clone();
+    numberFormatInfo.CurrencySymbol = "$";
+}
+
+
+<table style="width: 70%; margin:50px; position:absolute; left: 50%; margin-left: -35%; border-radius: 30px; border: 1px solid #ffc8c8; text-align: center;">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Кількість
+            </th>
+            <th>
+                Ціна
+            </th>
+            <th>
+                Статус
+            </th>
+            <th class="text-end">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.ListOfOrders)
+        {
+            <tr>
+                <td class="item">@item.Product.Name</td>
+                <td class="item">@item.CountProduct</td>
+                <td class="item">@((item.Product.Price * @item.CountProduct).ToString("C", numberFormatInfo))</td>
+                <td class="item">@item.OrderStatus</td>
+                <td class="item" role="group" >
+                    <a asp-action="OrderUser" asp-controller="Order" asp-route-id="@item.AppUserId">
+                        <ion-icon style="font-size: 25px;" name="eye-outline"></ion-icon></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<style>
+    .item {
+        border-top: 1px solid #ffc8c8;
+    }
+
+</style>

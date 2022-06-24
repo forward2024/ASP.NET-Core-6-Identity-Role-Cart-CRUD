@@ -1,0 +1,120 @@
+﻿@page
+@using Forward.Models.model
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="main_register">
+    <form class="form" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form_label">
+                <label asp-for="Input.Login"></label>
+                <label asp-for="Input.Name"></label>
+                <label asp-for="Input.Phone"></label>
+                <label asp-for="Input.Address"></label>
+                <label asp-for="Input.City"></label>
+                <label asp-for="Input.Email"></label>
+                <label asp-for="Input.Password"></label>
+                <label asp-for="Input.ConfirmPassword"></label>
+            </div>
+            <div class="form_input">
+                <input asp-for="Input.Login" aria-required="true" />
+                <span asp-validation-for="Input.Login" class="text-danger"></span>
+
+                <input asp-for="Input.Name" aria-required="true" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+
+                <input asp-for="Input.Phone" aria-required="true" />
+                <span asp-validation-for="Input.Phone" class="text-danger"></span>
+
+                <input asp-for="Input.Address" aria-required="true" />
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+
+                <input asp-for="Input.City" aria-required="true" />
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+
+                <input asp-for="Input.Email" aria-required="true" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+                <input asp-for="Input.Password" aria-required="true" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                <input asp-for="Input.ConfirmPassword" aria-required="true" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="confirm">Register</button>
+    </form>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+
+    .main_register {
+        display: grid;
+        justify-content: center;
+        margin: 30px;
+    }
+
+    .form {
+        display: grid;
+        grid-template-columns: 1fr 2.5fr;
+        padding: 20px 10px 20px 10px;
+        animation: header_border 2s infinite linear;
+        border-radius: 30px;
+        background: rgb(255,255,255);
+        background: radial-gradient(circle, rgba(255,255,255,1) 65%, rgba(255,200,200,1) 100%);
+    }
+
+    .form_label {
+        text-align: start;
+        display: grid;
+        align-items: center;
+    }
+
+        .form_label label {
+            text-align: center;
+            border-bottom: 1px solid #ffc8c8;
+            border-radius: 20px;
+            font-size: 17px;
+            padding: 0 20px;
+        }
+
+    .form_input {
+        text-align: start;
+        display: grid;
+        grid-template-rows: 1fr;
+        row-gap: 20px;
+    }
+
+        .form_input input {
+            height: 30px;
+            border: none;
+            text-align: center;
+            border-radius: 20px;
+            border: 1px solid #ffc8c8;
+            font-size: 17px;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+        }
+
+            .form_input input:last-child {
+                font-size: 15px;
+            }
+
+            .form_input input:active {
+                outline: double;
+                outline-color: #ffc8c8;
+            }
+
+            .form_input input:focus {
+                border: 1px solid #ffc8c8;
+            }
+
+    .text-danger {
+        color: red;
+    }
+</style>

@@ -1,0 +1,104 @@
+﻿@page
+@using Forward.Models.model
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+<partial name="_StatusMessage" for="StatusMessage" />
+<h3 style="text-align: center;">@ViewData["Title"]</h3>
+<div class="main">
+
+    <form id="profile-form" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form">
+            <div class="form_label">
+                <label>Login:</label>
+                <label>Name:</label>
+                <label>Phone:</label>
+                <label>City:</label>
+                <label>Address:</label>
+                <label>Email:</label>
+            </div>
+            <div class="form_input">
+                <input asp-for="Username" disabled />
+                <input asp-for="Name" />
+                <input asp-for="Phone" />
+                <input asp-for="City" />
+                <input asp-for="Address" />
+                <input asp-for="Email" />
+            </div>
+        </div>
+        <button class="confirm" id="update-profile-button" type="submit">Сохранить</button>
+    </form>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    .main {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 20px 10px 20px 10px;
+        border: 1px solid #ffc8c8;
+        justify-items: center;
+        justify-content: center;
+    }
+
+    .form_label {
+        text-align: start;
+        display: grid;
+        row-gap: 50px;
+        width: 100px;
+    }
+
+        .form_label label {
+            text-align: center;
+            border-bottom: 1px solid #ffc8c8;
+            border-radius: 20px;
+            font-size: 17px;
+        }
+
+    .form_input {
+        text-align: start;
+        display: grid;
+        grid-template-rows: 1fr;
+        row-gap: 50px;
+        width: 300px;
+    }
+
+        .form_input input {
+            border: none;
+            text-align: center;
+            border-radius: 20px;
+            border-top: 1px solid #ffc8c8;
+            border-right 1px solid #ffc8c8;
+            border-left: 1px solid #ffc8c8;
+            font-size: 17px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+    .confirm {
+        font-size: 20px;
+        letter-spacing: 2px;
+        padding: 8px 50px;
+        font-family: 'Montserrat', sans-serif;
+        transition: all .4s;
+        position: relative;
+        width: 100%;
+        background: white;
+        border: 1px solid #ffc8c8;
+        transition: all .5s;
+    }
+
+        .confirm:hover {
+            background: #ffc8c8;
+        }
+</style>

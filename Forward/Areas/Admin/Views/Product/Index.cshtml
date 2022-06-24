@@ -1,0 +1,89 @@
+﻿@using System.Globalization
+@model Forward.Data.ViewModel.ProductVM
+
+@{
+    ViewData["Title"] = "Товари";
+
+    var cultureInfo = Thread.CurrentThread.CurrentCulture;
+    var numberFormatInfo = (NumberFormatInfo)cultureInfo.NumberFormat.Clone();
+    numberFormatInfo.CurrencySymbol = "$";
+}
+
+<div style="position: absolute; width: 90%; left: 50%; margin-left: -45%; text-align: center;">
+    <h2 style="margin: 20px;">Товари</h2>
+
+    <form asp-area="Customer" asp-controller="Home" asp-action="Details" method="get" class="search_form">
+        ID:<input autocomplete="off" type="text" name="ProductId" />
+        <button type="submit"><ion-icon style="font-size: 25px" name="search-outline"></ion-icon></button>
+    </form>
+
+    <table style="width: 90%; position:absolute; left: 50%; margin-left: -45%; border-radius: 30px; border: 1px solid #ffc8c8;">
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Category
+                </th>
+                <th class="text-end">
+                    <a asp-action="CreateUpdate" asp-controller="Product"><ion-icon style="font-size: 25px" name="add-circle-outline"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td class="item"><img src="@item.ImageUrl" style="width: 65px" /></td>
+                    <td class="item">@item.Id</td>
+                    <td class="item">@item.Name</td>
+                    <td class="item">@item.Price.ToString("C", numberFormatInfo)</td>
+                    <td class="item">@item.Category.Name</td>
+                    <td class="item" role="group" class="text-end">
+                        <a asp-action="CreateUpdate" asp-controller="Product" asp-route-id="@item.Id"><ion-icon style="font-size:25px" name="create-outline"></ion-icon></a>
+                        <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id"><ion-icon style="font-size:25px" name="close-outline"></ion-icon></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@section scripts
+{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<style>
+    .item {
+        border-top: 1px solid #ffc8c8;
+    }
+
+    .search_form {
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+    }
+    .search_form input{
+        margin: 0 10px;
+        border-radius: 30px;
+        text-align:center;
+        padding: 3px 5px;
+        width: 300px;
+    }
+</style>

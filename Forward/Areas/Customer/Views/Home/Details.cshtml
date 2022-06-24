@@ -1,0 +1,31 @@
+﻿@using System.Globalization
+@model Cart
+
+@{
+    var cultureInfo = Thread.CurrentThread.CurrentCulture;
+    var numberFormatInfo = (NumberFormatInfo)cultureInfo.NumberFormat.Clone();
+    numberFormatInfo.CurrencySymbol = "$";
+}
+
+<div class="main_detail">
+    <input asp-for="ProductId" hidden />
+    <h1> @Model.Product.Name </h1>
+
+    <h7 style="color: #ffb0b0">Code: @Model.Product.Id</h7>
+    <form method="post">
+        <div class="detail">
+            <div class="detail_img">
+                <img src="@Model.Product.ImageUrl" /><br />
+            </div>
+            <div class="detail_info">
+                <div style="margin:20px; align-items:center;">
+                    <button class="add_cart" type="submit">
+                        У корзину
+                    </button>
+                    <label>@Model.Product.Price.ToString("c", numberFormatInfo)</label>
+                </div>
+                <textarea class="detail_info_area" asp-for="Product.Description" disabled>@Model.Product.Description</textarea>
+            </div>
+        </div>
+    </form>
+</div>

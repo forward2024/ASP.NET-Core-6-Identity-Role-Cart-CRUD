@@ -1,0 +1,25 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+    {
+        Layout = (string)parentLayout;
+    }
+    else
+    {
+        Layout = "/Areas/Identity/Pages/_Layout";
+    }
+}
+
+<h1 style="margin: 20px;">Керуйте своїм обліковим записом</h1>
+
+<div style="position:relative; width: 90%; left: 50%; margin-left: -45%; display: grid; grid-template-columns: 1fr 3fr; border: 1px solid #ffc8c8;border-radius:30px">
+    <div>
+        <partial name="_ManageNav" />
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

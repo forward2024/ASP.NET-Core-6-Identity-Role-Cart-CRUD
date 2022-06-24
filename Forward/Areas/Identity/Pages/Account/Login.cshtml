@@ -1,0 +1,86 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="main_login">
+    <form class="form-login" id="account" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="input_group">
+            <input asp-for="Input.Login" autocomplete="username" aria-required="true" />
+            <label asp-for="Input.Login" class="form-label"></label>
+            <span asp-validation-for="Input.Login" class="text-danger"></span>
+        </div>
+        <div class="input_group">
+            <input asp-for="Input.Password" autocomplete="current-password" aria-required="true" />
+            <label asp-for="Input.Password" class="form-label"></label>
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <button id="login-submit" type="submit" class="confirm">Log in</button>
+    </form>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    .main_login {
+        display: grid;
+        justify-content: center;
+        margin: 30px;
+    }
+
+    .form-login {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr .1fr;
+        padding: 100px;
+        animation: header_border 2s infinite linear;
+        border-radius: 30px;
+        background: rgb(255,255,255);
+        background: radial-gradient(circle, rgba(255,255,255,1) 65%, rgba(255,200,200,1) 100%);
+    }
+
+    .input_group {
+        position: relative;
+    }
+
+    input {
+        display: block;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        font: inherit;
+        margin-bottom: 50px;
+        background: white;
+        animation: header_border 2s infinite linear;
+    }
+
+    label {
+        position: absolute;
+        top: -30px;
+        left: 0px;
+        display: inline-flex;
+        column-gap: 10px;
+        align-items: center;
+        transition: transform .3s, opacity .3s;
+    }
+
+    input:focus + label {
+        transform: translateX(20px);
+    }
+
+    .text-danger {
+        color: red;
+        position: absolute;
+        left: 0;
+        bottom: -80px;
+    }
+    .confirm{
+        grid-area: 3/1;
+    }
+</style>

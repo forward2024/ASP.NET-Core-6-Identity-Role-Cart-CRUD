@@ -1,0 +1,50 @@
+﻿@using System.Globalization
+@model ProductVM
+@{
+    var cultureInfo = Thread.CurrentThread.CurrentCulture;
+    var numberFormatInfo = (NumberFormatInfo)cultureInfo.NumberFormat.Clone();
+    numberFormatInfo.CurrencySymbol = "$";
+}
+<div class="container">
+    <div class="container_left">
+        @if (Model.Products.Count() == 0)
+        {
+            <h2>На жаль цих товарів немає</h2>
+        }
+        else
+        {
+            @foreach (var item in Model.Products)
+            {
+                <a asp-action="Details" asp-controller="Home" asp-route-ProductId="@item.Id">
+                    <div class="container_left_product">
+                        <div class="container_left_product_img"><img src="@item.ImageUrl"></div>
+                        <div>
+                            <h3 style="margin-bottom: 20px">@item.Name</h3>
+                            <p>@item.Price.ToString("C", numberFormatInfo)</p>
+                        </div>
+                    </div>
+                </a>
+            }
+
+        }
+    </div>
+    <div class="container_right">
+        <div class="container_right_category">
+            <a class="but-category" asp-route-Category="">All</a>
+            @foreach (var item in Model.Category.OrderBy(x => x.Name))
+            {
+                <a class="but-category" asp-route-Category="@item.Name">@item.Name</a>
+            }
+        </div>
+        <div class="filter">
+            <span></span>
+        </div>
+        <div class="navbar">
+            <a class="but-category" asp-route-Category="">All</a>
+            @foreach (var item in Model.Category.OrderBy(x => x.Name))
+            {
+                <a class="but-category" asp-route-Category="@item.Name">@item.Name</a>
+            }
+        </div>
+    </div>
+</div>

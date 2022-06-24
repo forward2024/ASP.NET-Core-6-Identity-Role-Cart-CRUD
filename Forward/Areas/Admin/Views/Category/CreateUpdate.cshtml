@@ -1,0 +1,71 @@
+﻿@model Forward.Data.ViewModel.CategoryVM
+
+@{
+    ViewData["Title"] = "Create-Update";
+}
+
+<form method="post" asp-action="CreateUpdate">
+    <input type="hidden" asp-for="category.Id" />
+    <div style="position: absolute; width: 90%; left: 50%; margin-left: -45%; text-align: center;">
+        <div>
+            <h2 style="margin: 20px;">@((@Model.category==null || Model.category.Id == 0)?"Добавить":"Обновить")  категорію</h2>
+        </div>
+        <div asp-validation-summary="All"></div>
+
+        <div>
+            <label asp-for="category.Name" style="margin: 20px;"></label>
+            <input asp-for="category.Name" autocomplete="off" />
+            <span asp-validation-for="category.Name" class="text-danger"></span>
+        </div>
+        <div style="margin: 100px;">
+            @if (Model.category == null || Model.category.Id == 0)
+            {
+                <button style="margin-right: 40px;" type="submit">Добавить</button>
+            }
+            else
+            {
+                <button style="margin-right: 40px;" type="submit">Обновить</button>
+            }
+            <a asp-action="Index" asp-controller="Category" style="font-size:20px; margin-left: 40px;">Назад</a>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<style>
+    input {
+        border-radius: 30px;
+        text-align: center;
+        border: 1px solid #ffc8c8;
+        width: 250px;
+        height: 30px;
+        font-size: 25px;
+        font-family: 'Montserrat', sans-serif;
+    }
+    a{
+        transition: all .5s;
+        border: 1px solid transparent;
+        padding: 10px;
+        border-radius: 30px;
+    }
+    button {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;
+        transition: all .5s;
+        padding: 10px;
+        border-radius: 30px;
+        border: 1px solid transparent;
+    }
+    button:hover{
+        border: 1px solid #ffc8c8;
+    }
+    a:hover{
+        border: 1px solid #ffc8c8;
+    }
+</style>

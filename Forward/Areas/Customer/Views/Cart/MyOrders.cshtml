@@ -1,0 +1,59 @@
+﻿@using System.Globalization
+@using Forward.Models
+@model OrderVM
+@{
+    ViewData["Title"] = "Мої Замовлення";
+
+    var cultureInfo = Thread.CurrentThread.CurrentCulture;
+    var numberFormatInfo = (NumberFormatInfo)cultureInfo.NumberFormat.Clone();
+    numberFormatInfo.CurrencySymbol = "$";
+}
+<div class="containe_finish">
+    @foreach (var item in Model.orderFinishes.OrderByDescending(x => x.DateTimeOfOrder))
+    {
+        <div class="product_finish">
+            <a asp-action="Details" asp-controller="Home" asp-route-ProductId="@item.ProductId">
+                <div class="product_finish_img">
+                    <img src="@item.ProductImage">
+                </div>
+                <h3 style="text-align:center;">@item.ProductName</h3>
+            </a>
+            <div class="info_fininsh">
+                <p>Кількість товару: @item.CountProduct</p>
+                <h3 style="text-align: end;">@item.TotalPrice.ToString("c", numberFormatInfo)</h3>
+                <h5 style="text-align:center;">@item.DateTimeOfOrder</h5>
+                @if (@item.OrderStatus == OrderStatus.Status_5)
+                {
+                    <h5 style="text-align:start; color: red; margin: 10px;">@item.OrderStatus</h5>
+                }
+                @if (@item.OrderStatus == OrderStatus.Status_4)
+                {
+                    <h5 style="text-align:start; color: red; margin: 10px;">@item.OrderStatus</h5>
+                }
+                @if (@item.OrderStatus == OrderStatus.Status_3)
+                {
+                    <h3 style="text-align:start; color: lime; margin: 20px;">@item.OrderStatus</h3>
+                }
+                @if (@item.OrderStatus == OrderStatus.Status_2)
+                {
+                    <h3 style="text-align:start; color: black;">@item.OrderStatus</h3>
+                }
+                @if (@item.OrderStatus == OrderStatus.Status_1)
+                {
+                    <h3 style="text-align:start; color: black;">@item.OrderStatus</h3>
+                }
+                @if (@item.OrderStatus == OrderStatus.Status_0)
+                {
+                    <h3 style="text-align:start; color: black;">@item.OrderStatus</h3>
+                }
+
+                @if (@item.OrderStatus == @OrderStatus.Status_1 || @item.OrderStatus == @OrderStatus.Status_2 || @item.OrderStatus == OrderStatus.Status_0)
+                {
+                    <div style="display:flex; margin: 10px 20px; border: 2px solid white; justify-content: center">
+                        <a asp-action="Cancel" asp-controller="Cart" asp-route-id="@item.Id">Скасувати замовлення</a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

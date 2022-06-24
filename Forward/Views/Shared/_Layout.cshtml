@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <script src="~/js/site.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <header>
+            <div class="logo">
+                <a href="https://www.instagram.com/forward_2024/" class="icon"><ion-icon name="logo-instagram"></ion-icon></a>
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="Forward">𝔽𝕆ℝ𝕎𝔸ℝ𝔻</a>
+            </div>
+            <ul class="nav">
+                @if (ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_User))
+                {
+                    <li>
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index">Корзина</a>
+                    </li>
+                    <li>
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="MyOrders">Історія</a>
+                    </li>
+                }
+                @if (ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Admin))
+                {
+                    <li>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="Index">Категорії</a>
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Index">Товари</a>
+                    </li>
+                }
+                @if (
+                        ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Admin) ||
+                        ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Employee1) ||
+                        ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Employee2) ||
+                        ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Employee3)
+                    )
+                {
+                    <li>
+                        <a asp-area="Admin" asp-controller="Order" asp-action="Index">Замовлення</a>
+                    </li>
+                }
+            </ul>
+            <div class="partial_login">
+                <partial name="_LoginPartial" />
+            </div>
+        </header>
+        <div>
+            @RenderBody()
+        </div>
+    </main>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<script>
+$(document).ready(function () {
+    $('.filter').click(function (event) {
+        $('.filter, .navbar').toggleClass('active');
+    });
+});
+</script>

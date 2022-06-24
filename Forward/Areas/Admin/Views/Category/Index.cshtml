@@ -1,0 +1,47 @@
+﻿@model Forward.Data.ViewModel.CategoryVM
+
+@{
+    ViewData["Title"] = "Категорії";
+}
+
+
+
+
+<div style="position: absolute; width: 90%; left: 50%; margin-left: -45%; text-align: center;">
+    <h2 style="margin: 20px;">Категорії</h2>
+
+    <table class="table" style="width: 50%; position:absolute; left: 50%; margin-left: -25%; border-radius: 30px; border: 1px solid #ffc8c8;">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    <a asp-action="CreateUpdate"><ion-icon style="font-size: 25px" name="add-circle-outline"></ion-icon></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.categories)
+            {
+                <tr>
+                    <td class="item_name">@item.Name</td>
+                    <td class="item_active" role="group">
+                        <a asp-action="CreateUpdate" asp-controller="Category" asp-route-id="@item.Id"><ion-icon style="font-size:25px" name="create-outline"></ion-icon></a>
+                        <a asp-action="Delete" asp-controller="Category" asp-route-id="@item.Id"><ion-icon style="font-size:25px" name="close-outline"></ion-icon></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<style>
+    .item_name{
+        border-top: 1px solid #ffc8c8;
+    }
+    .item_active{
+        border-top: 1px solid #ffc8c8;
+    }
+</style>

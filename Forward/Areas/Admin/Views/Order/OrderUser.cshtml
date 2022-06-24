@@ -1,0 +1,133 @@
+﻿@using Forward.Data.ViewModel
+@using Forward.Models.model
+@using System.Globalization
+@model OrderVM
+
+
+@{
+    ViewData["Title"] = "Подробиці замовлення";
+
+    var cultureInfo = Thread.CurrentThread.CurrentCulture;
+    var numberFormatInfo = (NumberFormatInfo)cultureInfo.NumberFormat.Clone();
+    numberFormatInfo.CurrencySymbol = "$";
+}
+
+
+<h5 style="margin: 20px; font-size: 25px; text-align: center;">Подробиці замовлення</h5>
+<div style="display: grid; grid-template-columns: 30% 70%; margin: 50px 100px;">
+    <div class="form" style="margin: 1px;">
+        <div class="form_label">
+            <label class="form-label">Name</label>
+            <label class="form-label">Phone</label>
+            <label class="form-label">Address</label>
+            <label class="form-label">City</label>
+            <label class="form-label">Email</label>
+        </div>
+        <div class="form_input">
+            <input type="text" asp-for="@Model.OrderHeader.Name" />
+            <input type="text" asp-for="@Model.OrderHeader.Phone" />
+            <input type="text" asp-for="@Model.OrderHeader.Address" />
+            <input type="text" asp-for="@Model.OrderHeader.City" />
+            <input type="text" asp-for="@Model.OrderHeader.Email" />
+        </div>
+    </div>
+    <div style="position: relative; margin: 1px;">
+        <table style="width: 100%;  border-radius: 30px; border: 1px solid #ffc8c8; text-align: center;">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Кількість
+                    </th>
+                    <th>
+                        Ціна
+                    </th>
+                    <th>
+                        Статус
+                    </th>
+                    <th class="text-end">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListOfOrders)
+                {
+                    <tr>
+                        <td class="item">@item.Product.Name</td>
+                        <td class="item">@item.CountProduct</td>
+                        <td class="item">@((item.Product.Price * @item.CountProduct).ToString("C", numberFormatInfo))</td>
+                        <td class="item">
+                            @if (ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Employee1))
+                            {
+                                <a asp-action="OrderSubmit1" asp-controller="Order" asp-route-id="@item.Id"><ion-icon style="font-size: 20px;" name="checkmark-outline"></ion-icon></a>
+                            }
+                            @if (ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Employee2))
+                            {
+                                <a asp-action="OrderSubmit2" asp-controller="Order" asp-route-id="@item.Id"><ion-icon style="font-size: 20px;" name="checkmark-outline"></ion-icon></a>
+                            }
+                            @if (ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Employee3))
+                            {
+                                <a asp-action="OrderSubmit4" asp-controller="Order" asp-route-id="@item.Id"><ion-icon style="font-size: 20px;" name="checkmark-outline"></ion-icon></a>
+                            }
+                        </td>
+                        <td class="item" role="group">
+                            @if (ViewContext.HttpContext.User.IsInRole(WebSiteRole.Role_Admin))
+                            {
+                                <a asp-action="Delete" asp-controller="Order" asp-route-id="@item.Id"><ion-icon style="font-size: 20px;" name="close-outline"></ion-icon></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<style>
+    .item {
+        border-top: 1px solid #ffc8c8;
+    }
+
+    .form_label {
+        text-align: start;
+        display: grid;
+        row-gap: 50px;
+    }
+
+        .form_label label {
+            text-align: center;
+            border-bottom: 1px solid #ffc8c8;
+            border-radius: 20px;
+            font-size: 17px;
+            padding: 0 20px;
+        }
+
+    .form_input {
+        text-align: start;
+        display: grid;
+        grid-template-rows: 1fr;
+        row-gap: 50px;
+    }
+
+        .form_input input {
+            border: none;
+            text-align: center;
+            border-radius: 20px;
+            border-top: 1px solid #ffc8c8;
+            font-size: 17px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+            .form_input input:last-child {
+                font-size: 15px;
+            }
+
+            .form_input input:active {
+                outline: double;
+                outline-color: #ffc8c8;
+            }
+
+</style>

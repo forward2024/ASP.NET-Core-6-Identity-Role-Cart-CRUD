@@ -1,0 +1,120 @@
+﻿@model Forward.Data.ViewModel.ProductVM
+
+<form method="post" asp-action="CreateUpdate" enctype="multipart/form-data" style="position: absolute; width: 90%; left: 50%; margin-left: -45%; text-align: center;">
+    <input type="hidden" asp-for="Product.Id" />
+    <input type="hidden" asp-for="Product.ImageUrl" />
+    <h2 style="margin: 20px;">@((Model.Product==null || Model.Product.Id == 0)?"Добавить":"Обновить")  товар</h2>
+    <div style="display: grid; grid-template-columns: .5fr 1.5fr; margin: 100px;">
+
+        <div>
+            <img src="@Model.Product.ImageUrl" width="400" />
+        </div>
+        <div style="display: grid; justify-items: start">
+            <div asp-validation-summary="All"></div>
+
+            <div style="margin: 10px;">
+                <label asp-for="Product.Name"></label>
+                <input asp-for="Product.Name" autocomplete="off" />
+                <span asp-validation-for="Product.Name"></span>
+            </div>
+            <div style="margin: 10px; display: flex;align-items: center; justify-content: center">
+                <label asp-for="Product.Description" style="margin: 10px;">Подробиці</label>
+                <textarea asp-for="Product.Description"></textarea>
+                <span asp-validation-for="Product.Description"></span>
+            </div>
+            <div style="margin: 10px;">
+                <label asp-for="Product.Price">Ціна</label>
+                <input asp-for="Product.Price" autocomplete="off" />
+                <span asp-validation-for="Product.Price"></span>
+            </div>
+            <div style="margin: 10px;">
+                <label asp-for="Product.ImageUrl" style="font-size: 20px;"> Фото</label>
+                <input type="file" id="ImageFile" name="file" style="font-size: 15px; width: max-content; height: max-content; padding: 10px 20px" />
+            </div>
+            <div style="margin: 10px;">
+                <label asp-for="Product.CategoryId">Категорія</label>
+                <select asp-for="Product.CategoryId" asp-items="@Model.Categories">
+                    <option selected disabled>--Обрати категорію--</option>
+                </select>
+                <span asp-validation-for="Product.CategoryId"></span>
+            </div>
+            <div>
+
+
+                @if (Model.Product == null || Model.Product.Id == 0)
+                {
+                    <button class="btn btn-primary" type="submit">Добавить</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary" type="submit">Обновить</button>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section scripts
+{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<style>
+    select {
+        border-radius: 30px;
+        text-align: center;
+        border: 1px solid #ffc8c8;
+        width: 250px;
+        height: 30px;
+        font-size: 15px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    input {
+        border-radius: 30px;
+        text-align: center;
+        border: 1px solid #ffc8c8;
+        width: 250px;
+        height: 30px;
+        font-size: 20px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    a {
+        transition: all .5s;
+        border: 1px solid transparent;
+        padding: 10px;
+        border-radius: 30px;
+    }
+
+    button {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;
+        transition: all .5s;
+        padding: 10px;
+        border-radius: 30px;
+        border: 1px solid transparent;
+    }
+
+        button:hover {
+            border: 1px solid #ffc8c8;
+        }
+
+    a:hover {
+        border: 1px solid #ffc8c8;
+    }
+
+    textarea {
+        border-radius: 30px;
+        text-align: center;
+        border: 1px solid #ffc8c8;
+        width: 400px;
+        height: 200px;
+        font-size: 15px;
+        font-family: 'Montserrat', sans-serif;
+    }
+</style>
